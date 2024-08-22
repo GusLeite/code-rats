@@ -1,5 +1,6 @@
 package br.com.fiap.code_rats.services;
 
+import br.com.fiap.code_rats.dtos.CourseCreationDTO;
 import br.com.fiap.code_rats.models.Course;
 import br.com.fiap.code_rats.repositories.CourseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,15 +16,19 @@ public class CourseService {
     public List<Course> getAllCourses() {
         return repository.findAll();
     }
-    public void createCourse(Course course) {
-        repository.save(course);
+
+
+    public Course createCourse(Course course) {
+        return repository.save(course);
     }
     public Course getCourseById(Long id) {
         return repository.getReferenceById(id);
     }
-    public void updateCourse(Course data) {
+
+    public Course updateCourse(CourseCreationDTO data) {
         Course entityToBeUpdated = repository.getReferenceById(data.getId());
         entityToBeUpdated.updateData(data);
+        return repository.save(entityToBeUpdated);
     }
     public void deleteCourse(Long id) {
         repository.deleteById(id);
